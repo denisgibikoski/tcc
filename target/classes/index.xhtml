@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/templates/base.xhtml">
+
+	<f:metadata>
+		<f:viewAction action="#{homeBean.inicializar}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Aplicação</ui:define>
+	<ui:define name="conteudo">
+
+		<p:growl id="messages" showDetail="true" />
+
+		<p:schedule value="#{homeBean.reservas}" locale="pt">
+
+			<p:ajax event="dateSelect" listener="#{homeBean.onDateSelect}" 	update="eventDetails" oncomplete="PF('eventDialog').show();" />
+			<p:ajax event="eventSelect" listener="#{homeBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+			<p:ajax event="eventMove" listener="#{homeBean.onEventMove}"
+				update="messages" />
+
+		</p:schedule>
+
+		<p:dialog widgetVar="eventDialog" header="Reserva " 
+			showEffect="clip" hideEffect="clip">
+
+			<h:panelGrid id="eventDetails" columns="2">
+
+				<p:outputLabel value="Nome do Morado: " />
+				<p:inputText value="#{homeBean.reserva.usuario.nome}"
+					readonly="true" />
+
+				<p:outputLabel value="Inicio reserva: " />
+				<p:calendar value="#{homeBean.reserva.dataInicial}"
+					pattern="dd/MM/yyyy HH:mm:ss" />
+
+				<p:outputLabel value="Fim reserva: " />
+				<p:calendar value="#{homeBean.reserva.dataFinal}"
+					pattern="dd/MM/yyyy HH:mm:ss" />
+
+				<p:outputLabel value="Status: " />
+				<p:selectOneMenu value="#{homeBean.reserva.statusReserva}"
+					style="text-align: center; width: 100px">
+					<f:selectItems value="#{homeBean.statusReservas}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Descrição: " />
+				<p:inputTextarea value="#{homeBean.reserva.descricao}" />
+
+				<p:outputLabel value="Assinatura: " />
+				<p:signature style="width:400px;height:200px" widgetVar="sig"
+					value="#{homeBean.reserva.assinatura}" required="true"
+					guideline="true" />
+
+				<p:outputPanel id="output">
+					<h:outputText rendered="#{not empty homeBean.reserva.assinatura}"
+						style="font-size:24px;display:block" value="Assinatura: " />
+					<p:signature style="width:400px;height:200px;"
+						value="#{homeBean.reserva.assinatura}" readonly="true"
+						rendered="#{not empty homeBean.reserva.assinatura}"
+						backgroundColor="#eaeaea" color="#03a9f4" />
+				</p:outputPanel>
+				<p:commandButton type="reset" value="Reset" />
+				<p:commandButton id="addButton" value="Save"
+					action="#{homeBean.addEvent}"
+					oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+			</h:panelGrid>
+		</p:dialog>
+
+	</ui:define>
+
+</ui:composition>

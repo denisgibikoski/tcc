@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/resources/templates/base.xhtml">
+
+	<ui:define name="titulo">Acesso negado</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm" styleClass="form-principal">
+
+			<h:panelGrid columns="1" styleClass="grid-titulos">
+				<h:outputLabel value="Pesquisa" styleClass="titulo1"></h:outputLabel>
+				<h:outputLabel value="Unidades De Moradia" styleClass="titulo2"></h:outputLabel>
+			</h:panelGrid>
+
+			<p:fieldset class="grupo-geral">
+				<h:panelGrid columns="2" styleClass="grid-titulo-pesquisa">
+					<div class="barra-vertical"></div>
+					<h:outputLabel value="Pesquisar" styleClass="titulo-pesquisa"></h:outputLabel>
+				</h:panelGrid>
+
+				<p:messages id="msg" closable="true" autoUpdate="true" />
+				<h1>Você não possui permissão para acessar esta página.</h1>
+
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
