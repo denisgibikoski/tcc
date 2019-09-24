@@ -9,6 +9,12 @@ import com.example.demo.model.Reserva;
 @Service
 public interface ReservaService {
 
-	List<Reserva> getTodas();
+	List<Reserva> todos();
+
+	void remover(Reserva reserva);
+
+	Reserva salvar(Reserva reserva);
+
+	
 	
 }

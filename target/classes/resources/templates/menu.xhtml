@@ -1,13 +1,18 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml" 
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form>
 		<p:menu>
+			<p:submenu label="Eventos">
+				<p:menuitem value="Lista de Eventos" outcome="listaEventos" />
+			</p:submenu>
+
 			<p:submenu label="Cadastros">
 				<p:menuitem value="Usuarios" outcome="listaUsuarios" />
-				<p:menuitem value="Unidades de Moradia" outcome="listaUnidadeMoradia" />
+				<p:menuitem value="Unidades de Moradia"
+					outcome="listaUnidadeMoradia" />
 			</p:submenu>
 		</p:menu>
 	</h:form>

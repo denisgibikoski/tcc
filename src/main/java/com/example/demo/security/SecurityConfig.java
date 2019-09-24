@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
 
 	@Autowired
@@ -43,19 +43,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().headers().frameOptions().sameOrigin().and()
 
 				.authorizeRequests()
-				.antMatchers("/Login.xhtml","/resources/**", "/cadastroUsuario.xhtml", "/Erro.xhtml", "/javax.faces.resource/**").permitAll()
-				.antMatchers("/index.xhtml", "/AcessoNegado.xhtml", "/dialogos/**").authenticated()
-				.antMatchers("/listaUsuarios.xhtml").hasAnyRole("SINDICO")
-				.antMatchers("/listaUnidadeMoradia.xhtml").hasAnyRole("SINDICO")
-				.and()
-				.formLogin().loginPage("/Login.xhtml").failureUrl("/Login.xhtml?invalid=true")
-				.and()
-				
-				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.invalidateHttpSession(true)
-				.deleteCookies("JSESSIONID")
-				.and()
-				.exceptionHandling().accessDeniedPage("/AcessoNegado.xhtml").authenticationEntryPoint(jsfLoginEntry)
+				.antMatchers("/Login.xhtml", "/resources/**", "/cadastroUsuario.xhtml", "/Erro.xhtml",
+						"/javax.faces.resource/**")
+				.permitAll().antMatchers("/index.xhtml", "/AcessoNegado.xhtml", "/dialogos/**").authenticated()
+				.antMatchers("/listaUsuarios.xhtml").hasAnyRole("SINDICO").antMatchers("/listaUnidadeMoradia.xhtml")
+				.hasAnyRole("SINDICO").and().formLogin().loginPage("/Login.xhtml")
+				.failureUrl("/Login.xhtml?invalid=true").and()
+
+				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID").and().exceptionHandling().accessDeniedPage("/AcessoNegado.xhtml")
 				.accessDeniedHandler(jsfDeniedEntry);
 	}
 

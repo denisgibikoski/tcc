@@ -1,31 +1,33 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	template="/resources/templates/base.xhtml">
+	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="titulo">Acesso negado</ui:define>
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title><ui:insert>Login</ui:insert></title>
+	<h:outputStylesheet library="css" name="login.css" />
+	<h:outputScript target="body" library="primefaces"
+		name="jquery/jquery.js" />
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputScript library="js" name="index.js" />
 
-	<ui:define name="corpo">
-		<h:form id="frm" styleClass="form-principal">
+	<link rel='stylesheet'
+		href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' />
+</h:head>
+<h:body>
 
-			<h:panelGrid columns="1" styleClass="grid-titulos">
-				<h:outputLabel value="Pesquisa" styleClass="titulo1"></h:outputLabel>
-				<h:outputLabel value="Unidades De Moradia" styleClass="titulo2"></h:outputLabel>
-			</h:panelGrid>
+	<div id="login" style="text-align: center">
+		<h:form id="frm" prependId="false" styleClass="semBorda">
 
-			<p:fieldset class="grupo-geral">
-				<h:panelGrid columns="2" styleClass="grid-titulo-pesquisa">
-					<div class="barra-vertical"></div>
-					<h:outputLabel value="Pesquisar" styleClass="titulo-pesquisa"></h:outputLabel>
-				</h:panelGrid>
+			<h1>Você não possui permissão para acessar esta página.</h1>
+			<p:link outcome="index" value="Voltar" />
 
-				<p:messages id="msg" closable="true" autoUpdate="true" />
-				<h1>Você não possui permissão para acessar esta página.</h1>
-
-			</p:fieldset>
 		</h:form>
-	</ui:define>
-
-</ui:composition>
+	</div>
+</h:body>
+</html>

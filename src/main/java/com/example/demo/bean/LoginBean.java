@@ -4,36 +4,35 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.example.demo.model.Usuario;
 import com.example.demo.service.UsuarioService;
+import com.example.demo.util.FacesUtil;
 
 @Named
 @SessionScoped
 public class LoginBean implements Serializable {
 
-
 	private static final long serialVersionUID = 1L;
 
-	@Autowired (required = false)
+	@Autowired(required = false)
 	private FacesContext facesContext;
 
-	@Autowired 
+	@Autowired
 	private HttpServletRequest request;
 
-	@Autowired 
+	@Autowired
 	private HttpServletResponse response;
-	
-	@Autowired 
+
+	@Autowired
 	private UsuarioService usuarioService;
 
 	private Usuario usuario;
@@ -46,20 +45,27 @@ public class LoginBean implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
 	public void sair() throws IOException {
-		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		ec.redirect(ec.getRequestContextPath() + "/logout");
+		SecurityContextHolder.clearContext();
 	}
-		
-	public void login() throws ServletException, IOException {
 
-		usuario = usuarioService.porEmail(email);
+	public void login() {
+		try {
+			usuario = usuarioService.porEmail(email);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/Login.xhtml");
-		dispatcher.forward(request, response);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/Login.xhtml");
+			dispatcher.forward(request, response);
 
-		facesContext.responseComplete();
+			facesContext.responseComplete();
+			if ("true".equals(request.getParameter("invalid"))) {
+				FacesUtil.addErrorMessage("Usuário ou senha inválido!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesUtil.addErrorMessage("Usuário ou senha inválido!");
+		}
+
 	}
 
 	public String getEmail() {
