@@ -15,6 +15,8 @@ public interface ReservaService {
 
 	Reserva salvar(Reserva reserva);
 
+	Reserva porId(Long id);
+
 	
 	
 }

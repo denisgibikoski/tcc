@@ -32,4 +32,9 @@ public class ReservaServiceimpl implements ReservaService {
 		return reservaRepository.save(reserva);
 	}
 
+	@Override
+	public Reserva porId(Long id) {
+		return reservaRepository.findById(id).orElse(null);
+	}
+
 }

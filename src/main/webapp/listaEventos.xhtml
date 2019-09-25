@@ -60,6 +60,18 @@
 						style="text-align: center; width: 50px" exportable="false">
 						<h:outputText value="#{reserva.usuario.moradia.unidade}" />
 					</p:column>
+					<p:column headerText="Data de Inicio"
+						style="text-align: center; width: 50px" exportable="false">
+						<h:outputText value="#{reserva.dataInicial}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Data Final"
+						style="text-align: center; width: 50px" exportable="false">
+						<h:outputText value="#{reserva.dataFinal}" >
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Sao_Paulo" />
+						</h:outputText>
+					</p:column>
 
 					<p:column headerText="Descricao"
 						style="text-align: center; width: 100px" exportable="false">
